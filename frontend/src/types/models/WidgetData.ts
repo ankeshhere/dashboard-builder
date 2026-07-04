@@ -4,4 +4,8 @@ export interface WidgetData {
   query?: string;
 
   refreshInterval?: number;
+
+  categories?: string[];
+
+  values?: number[];
 }

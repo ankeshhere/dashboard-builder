@@ -1,0 +1,97 @@
+Folder PATH listing for volume Windows
+Volume serial number is 00000166 2890:EBDB
+C:\USERS\ANKES\DESKTOP\MYWORKS\DASHBOARD-BUILDER\FRONTEND\SRC
+|   App.tsx
+|   main.tsx
+|   
++---app
++---components
+|   +---canvas
+|   |       Canvas.tsx
+|   |       WidgetContainer.tsx
+|   |       WidgetRenderer.tsx
+|   |       
+|   +---common
+|   +---layout
+|   |       AppLayout.tsx
+|   |       
+|   +---property-panel
+|   |       PropertyPanel.tsx
+|   |       
+|   +---sidebar
+|   |       Sidebar.tsx
+|   |       WidgetCard.tsx
+|   |       
+|   \---toolbar
+|           Toolbar.tsx
+|           
++---engine
+|   |   DashboardEngine.ts
+|   |   
+|   +---events
+|   +---factory
+|   |       WidgetFactory.ts
+|   |       
+|   +---history
+|   |       DashboardHistory.ts
+|   |       
+|   +---layout
+|   +---persistence
+|   |       DashboardSerializer.ts
+|   |       DashboardStorage.ts
+|   |       
+|   +---plugins
+|   |       IWidgetPlugin.ts
+|   |       registerPlugins.ts
+|   |       
+|   +---registry
+|   |       WidgetRegistry.ts
+|   |       
+|   +---renderer
+|   \---state
++---hooks
+|       useDashboardKeyboardShortcuts.ts
+|       
++---pages
+|       Dashboard.tsx
+|       
++---services
++---store
+|       dashboardStore.ts
+|       
++---theme
+|       palette.ts
+|       theme.ts
+|       ThemeProvider.tsx
+|       typography.ts
+|       
++---types
+|   \---models
+|           Dashboard.ts
+|           DataSource.ts
+|           Filter.ts
+|           Theme.ts
+|           Widget.ts
+|           WidgetData.ts
+|           WidgetLayout.ts
+|           WidgetProperties.ts
+|           WidgetStyle.ts
+|           
++---utils
+|       dom.ts
+|       id.ts
+|       
+\---widgets
+    +---progress
+    |       ProgressDefaults.ts
+    |       ProgressPlugin.tsx
+    |       ProgressPropertyEditor.tsx
+    |       ProgressRenderer.tsx
+    |       
+    +---registry
+    \---text
+            TextDefaults.ts
+            TextPlugin.tsx
+            TextPropertyEditor.tsx
+            TextRenderer.tsx
+            

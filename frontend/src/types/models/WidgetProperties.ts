@@ -6,4 +6,8 @@ export interface WidgetProperties {
   text?: string;
 
   value?: number;
+
+  valuePrefix?: string;
+
+  valueSuffix?: string;
 }

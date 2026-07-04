@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import type { Widget } from "../../types/models/Widget";
 
@@ -10,14 +10,18 @@ export default function TextRenderer({ widget }: Props) {
   const text = widget.properties.text ?? widget.properties.title ?? "Untitled";
 
   return (
-    <Paper
-      elevation={1}
+    <Box
       sx={{
-        p: 2,
-        mb: 2,
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Typography variant="h6">{text}</Typography>
-    </Paper>
+      <Typography variant="h5" textAlign="center">
+        {text}
+      </Typography>
+    </Box>
   );
 }

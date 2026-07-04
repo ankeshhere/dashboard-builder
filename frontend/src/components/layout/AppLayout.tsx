@@ -5,37 +5,50 @@ import Toolbar from "../toolbar/Toolbar";
 import Canvas from "../canvas/Canvas";
 import PropertyPanel from "../property-panel/PropertyPanel";
 
+import { useDashboardStore } from "../../store/dashboardStore";
+import { DashboardStorage } from "../../engine/persistence/DashboardStorage";
+import useDashboardKeyboardShortcuts from "../../hooks/useDashboardKeyboardShortcuts";
+
 export default function AppLayout() {
+  useDashboardKeyboardShortcuts();
 
-    return (
+  const widgets = useDashboardStore((s) => s.widgets);
+  const setWidgets = useDashboardStore((s) => s.setWidgets);
+  const selectWidget = useDashboardStore((s) => s.selectWidget);
 
-        <Box
-            sx={{
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column"
-            }}
-        >
+  const handleSave = () => {
+    DashboardStorage.save(widgets);
+  };
 
-            <Toolbar />
+  const handleLoad = () => {
+    const loadedWidgets = DashboardStorage.load();
 
-            <Box
-                sx={{
-                    flex: 1,
-                    display: "flex"
-                }}
-            >
+    setWidgets(loadedWidgets);
+    selectWidget(null);
+  };
 
-                <Sidebar />
+  return (
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Toolbar onSave={handleSave} onLoad={handleLoad} />
 
-                <Canvas />
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+        }}
+      >
+        <Sidebar />
 
-                <PropertyPanel />
+        <Canvas />
 
-            </Box>
-
-        </Box>
-
-    );
-
+        <PropertyPanel />
+      </Box>
+    </Box>
+  );
 }

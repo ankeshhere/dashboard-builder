@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Paper, Typography } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 
 import type { Widget } from "../../types/models/Widget";
 
@@ -12,30 +12,34 @@ export default function ProgressRenderer({ widget }: Props) {
   const value = Math.max(0, Math.min(100, widget.properties.value ?? 0));
 
   return (
-    <Paper
-      elevation={1}
+    <Box
       sx={{
-        p: 2,
-        mb: 2,
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <Typography variant="subtitle1" gutterBottom>
-        {title}
-      </Typography>
-
-      <LinearProgress variant="determinate" value={value} />
+      <Typography variant="subtitle1">{title}</Typography>
 
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "flex-end",
+          flexGrow: 1,
+        }}
+      />
+
+      <LinearProgress variant="determinate" value={value} />
+
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="right"
+        sx={{
           mt: 1,
         }}
       >
-        <Typography variant="body2" color="text.secondary">
-          {value}%
-        </Typography>
-      </Box>
-    </Paper>
+        {value}%
+      </Typography>
+    </Box>
   );
 }

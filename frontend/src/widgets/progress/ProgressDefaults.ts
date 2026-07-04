@@ -1,19 +1,19 @@
 import type { Widget } from "../../types/models/Widget";
 import { v4 as uuid } from "uuid";
 
-export function createTextWidget(): Widget {
+export function createProgressWidget(): Widget {
   return {
     id: uuid(),
 
-    type: "text",
+    type: "progress",
 
-    name: "Text",
+    name: "Progress Bar",
 
     layout: {
       x: 0,
       y: 0,
       w: 4,
-      h: 3,
+      h: 2,
     },
 
     style: {},
@@ -21,8 +21,8 @@ export function createTextWidget(): Widget {
     data: {},
 
     properties: {
-      title: "Text Widget",
-      text: "Hello World",
+      title: "Progress",
+      value: 65,
     },
   };
 }

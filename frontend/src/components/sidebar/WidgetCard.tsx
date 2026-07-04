@@ -1,15 +1,17 @@
 import { Box, Card, Typography } from "@mui/material";
-import type { WidgetDefinition } from "../../types/WidgetDefinition";
+import type { IWidgetPlugin } from "../../engine/plugins/IWidgetPlugin";
 
 interface Props {
-  widget: WidgetDefinition;
+  widget: IWidgetPlugin;
+  onClick: () => void;
 }
 
-export default function WidgetCard({ widget }: Props) {
+export default function WidgetCard({ widget, onClick }: Props) {
   const Icon = widget.icon;
 
   return (
     <Card
+      onClick={onClick}
       sx={{
         p: 2,
         mb: 1,
@@ -31,18 +33,12 @@ export default function WidgetCard({ widget }: Props) {
         <Icon size={22} />
 
         <Box>
-          <Typography
-            variant="subtitle2"
-            fontWeight={600}
-          >
-            {widget.name}
+          <Typography variant="subtitle2" fontWeight={600}>
+            {widget.displayName}
           </Typography>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            {widget.description}
+          <Typography variant="body2" color="text.secondary">
+            {widget.category}
           </Typography>
         </Box>
       </Box>

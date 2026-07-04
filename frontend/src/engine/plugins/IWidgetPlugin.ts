@@ -1,15 +1,24 @@
+import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+
 import type { Widget } from "../../types/models/Widget";
 
+export interface WidgetComponentProps {
+  widget: Widget;
+}
+
 export interface IWidgetPlugin {
+  type: string;
 
-    type: string;
+  displayName: string;
 
-    displayName: string;
+  category: string;
 
-    category: string;
+  icon: LucideIcon;
 
-    icon: string;
+  createDefault(): Widget;
 
-    createDefault(): Widget;
+  renderer: ComponentType<WidgetComponentProps>;
 
+  propertyEditor?: ComponentType<WidgetComponentProps>;
 }

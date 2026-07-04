@@ -2,27 +2,28 @@ import type { Widget } from "./Widget";
 import type { DashboardTheme } from "./Theme";
 import type { DashboardFilter } from "./Filter";
 import type { DataSource } from "./DataSource";
+import type { Dataset } from "../dashboard/Dataset";
 
 export interface Dashboard {
+  id: string;
 
-    id: string;
+  name: string;
 
-    name: string;
+  description?: string;
 
-    description?: string;
+  version: number;
 
-    version: number;
+  theme: DashboardTheme;
 
-    theme: DashboardTheme;
+  dataSources: DataSource[];
 
-    dataSources: DataSource[];
+  datasets: Dataset[];
 
-    filters: DashboardFilter[];
+  filters: DashboardFilter[];
 
-    widgets: Widget[];
+  widgets: Widget[];
 
-    createdAt: string;
+  createdAt: string;
 
-    updatedAt: string;
-
+  updatedAt: string;
 }

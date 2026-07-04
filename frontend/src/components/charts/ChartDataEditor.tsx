@@ -1,12 +1,17 @@
-import { Stack, TextField, Typography } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+} from "@mui/material";
 
 import type { Widget } from "../../types/models/Widget";
 
 import { useDashboardStore } from "../../store/dashboardStore";
 
-import ChartDataTable from "./ChartDataTable";
-import { fromRows, toRows } from "../../utils/chartData";
-import CsvImportButton from "./CsvImportButton";
+import DatasetDataEditor from "./DatasetDataEditor";
+import ManualDataEditor from "./ManualDataEditor";
 
 interface Props {
   widget: Widget;
@@ -14,53 +19,35 @@ interface Props {
 }
 
 export default function ChartDataEditor({ widget, heading }: Props) {
-  const updateWidget = useDashboardStore((state) => state.updateWidget);
+  const updateWidgetDataSource = useDashboardStore(
+    (s) => s.updateWidgetDataSource,
+  );
 
-  const rows = toRows(widget.data.categories ?? [], widget.data.values ?? []);
+  const mode = widget.dataSource?.type === "csv" ? "csv" : "manual";
 
   return (
-    <Stack spacing={3}>
-      <Typography variant="subtitle1">{heading}</Typography>
+    <Stack spacing={2}>
+      <FormControl>
+        <RadioGroup
+          row
+          value={mode}
+          onChange={(e) =>
+            updateWidgetDataSource(widget.id, {
+              type: e.target.value as "manual" | "csv",
+            })
+          }
+        >
+          <FormControlLabel value="manual" control={<Radio />} label="Manual" />
 
-      <TextField
-        label="Title"
-        fullWidth
-        value={widget.properties.title ?? ""}
-        onChange={(event) =>
-          updateWidget({
-            ...widget,
-            properties: {
-              ...widget.properties,
-              title: event.target.value,
-            },
-          })
-        }
-      />
+          <FormControlLabel value="csv" control={<Radio />} label="Dataset" />
+        </RadioGroup>
+      </FormControl>
 
-      <CsvImportButton
-        onImport={(data) =>
-          updateWidget({
-            ...widget,
-            data: {
-              ...widget.data,
-              ...data,
-            },
-          })
-        }
-      />
-
-      <ChartDataTable
-        rows={rows}
-        onChange={(rows) =>
-          updateWidget({
-            ...widget,
-            data: {
-              ...widget.data,
-              ...fromRows(rows),
-            },
-          })
-        }
-      />
+      {mode === "manual" ? (
+        <ManualDataEditor widget={widget} heading={heading} />
+      ) : (
+        <DatasetDataEditor widget={widget} />
+      )}
     </Stack>
   );
 }

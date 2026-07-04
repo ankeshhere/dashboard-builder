@@ -13,17 +13,24 @@ export default function AppLayout() {
   useDashboardKeyboardShortcuts();
 
   const widgets = useDashboardStore((s) => s.widgets);
+  const datasets = useDashboardStore((s) => s.datasets);
+
   const setWidgets = useDashboardStore((s) => s.setWidgets);
+  const setDatasets = useDashboardStore((s) => s.setDatasets);
+
   const selectWidget = useDashboardStore((s) => s.selectWidget);
 
   const handleSave = () => {
-    DashboardStorage.save(widgets);
+    DashboardStorage.save(widgets, datasets);
   };
 
   const handleLoad = () => {
-    const loadedWidgets = DashboardStorage.load();
+    const { widgets: loadedWidgets, datasets: loadedDatasets } =
+      DashboardStorage.load();
 
     setWidgets(loadedWidgets);
+    setDatasets(loadedDatasets);
+
     selectWidget(null);
   };
 

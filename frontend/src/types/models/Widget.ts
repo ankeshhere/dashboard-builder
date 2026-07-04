@@ -2,21 +2,22 @@ import type { WidgetLayout } from "./WidgetLayout";
 import type { WidgetStyle } from "./WidgetStyle";
 import type { WidgetData } from "./WidgetData";
 import type { WidgetProperties } from "./WidgetProperties";
+import type { WidgetDataSource } from "../dashboard/DataSource";
 
 export interface Widget {
+  id: string;
 
-    id:string;
+  type: string;
 
-    type:string;
+  name: string;
 
-    name:string;
+  layout: WidgetLayout;
 
-    layout:WidgetLayout;
+  style: WidgetStyle;
 
-    style:WidgetStyle;
+  data: WidgetData;
 
-    data:WidgetData;
+  properties: WidgetProperties;
 
-    properties:WidgetProperties;
-
+  dataSource?: WidgetDataSource;
 }

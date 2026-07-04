@@ -1,14 +1,13 @@
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-
 import { Button } from "@mui/material";
 import { useRef } from "react";
 
-import type { ChartData } from "../../types/datasource/ChartData";
+import type { Dataset } from "../../types/dashboard/Dataset";
 
-import { loadChartDataFromCsv } from "../../providers/csv/CsvDataProvider";
+import { loadDatasetFromCsv } from "../../providers/csv/CsvDataProvider";
 
 interface Props {
-  onImport(data: ChartData): void;
+  onImport(dataset: Dataset): void;
 }
 
 export default function CsvImportButton({ onImport }: Props) {
@@ -24,9 +23,9 @@ export default function CsvImportButton({ onImport }: Props) {
     }
 
     try {
-      const data = await loadChartDataFromCsv(file);
+      const dataset = await loadDatasetFromCsv(file);
 
-      onImport(data);
+      onImport(dataset);
     } catch (error) {
       console.error(error);
 

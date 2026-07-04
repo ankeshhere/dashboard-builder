@@ -1,86 +1,28 @@
 import { create } from "zustand";
 
-import type { Widget } from "../types/models/Widget";
-import { generateWidgetId } from "../utils/id";
+import { createDatasetSlice, type DatasetSlice } from "./slices/datasetSlice";
+import {
+  createSelectionSlice,
+  type SelectionSlice,
+} from "./slices/selectionSlice";
+import { createWidgetSlice, type WidgetSlice } from "./slices/widgetSlice";
 
-interface DashboardState {
-  widgets: Widget[];
-
-  selectedWidgetId: string | null;
-
-  addWidget: (widget: Widget) => void;
-
-  removeWidget: (id: string) => void;
-
-  duplicateWidget: (id: string) => void;
-
-  selectWidget: (id: string | null) => void;
-
-  updateWidget: (widget: Widget) => void;
-
-  setWidgets: (widgets: Widget[]) => void;
-
+export interface DashboardState
+  extends WidgetSlice, DatasetSlice, SelectionSlice {
   clear: () => void;
 }
 
-export const useDashboardStore = create<DashboardState>((set) => ({
-  widgets: [],
+export const useDashboardStore = create<DashboardState>()((set, get, api) => ({
+  ...createWidgetSlice(set, get, api),
 
-  selectedWidgetId: null,
+  ...createDatasetSlice(set, get, api),
 
-  addWidget: (widget) =>
-    set((state) => ({
-      widgets: [...state.widgets, widget],
-    })),
-
-  removeWidget: (id) =>
-    set((state) => ({
-      widgets: state.widgets.filter((w) => w.id !== id),
-    })),
-
-  duplicateWidget: (id) =>
-    set((state) => {
-      const widget = state.widgets.find((w) => w.id === id);
-
-      if (!widget) {
-        return state;
-      }
-
-      const duplicatedWidget: Widget = {
-        ...widget,
-        id: generateWidgetId(),
-        name: `${widget.name} Copy`,
-        layout: {
-          ...widget.layout,
-          x: widget.layout.x + 1,
-          y: widget.layout.y + 1,
-        },
-      };
-
-      return {
-        widgets: [...state.widgets, duplicatedWidget],
-        selectedWidgetId: duplicatedWidget.id,
-      };
-    }),
-
-  selectWidget: (id) =>
-    set({
-      selectedWidgetId: id,
-    }),
-
-  updateWidget: (widget) =>
-    set((state) => ({
-      widgets: state.widgets.map((w) => (w.id === widget.id ? widget : w)),
-    })),
-
-  setWidgets: (widgets) =>
-    set({
-      widgets,
-    }),
+  ...createSelectionSlice(set, get, api),
 
   clear: () =>
     set({
       widgets: [],
+      datasets: [],
       selectedWidgetId: null,
     }),
 }));

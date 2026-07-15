@@ -6,11 +6,13 @@ import {
 } from "@mui/material";
 
 interface Props {
+  editMode: boolean;
+  onEdit: () => void;
   onSave: () => void;
   onLoad: () => void;
 }
 
-export default function Toolbar({ onSave, onLoad }: Props) {
+export default function Toolbar({ editMode, onEdit, onSave, onLoad }: Props) {
   return (
     <AppBar position="static" color="inherit" elevation={1}>
       <MuiToolbar>
@@ -22,9 +24,15 @@ export default function Toolbar({ onSave, onLoad }: Props) {
           Load
         </Button>
 
-        <Button sx={{ ml: 2 }} variant="contained" onClick={onSave}>
-          Save
-        </Button>
+        {editMode ? (
+          <Button sx={{ ml: 2 }} variant="contained" onClick={onSave}>
+            Save
+          </Button>
+        ) : (
+          <Button sx={{ ml: 2 }} variant="contained" onClick={onEdit}>
+            Edit
+          </Button>
+        )}
       </MuiToolbar>
     </AppBar>
   );

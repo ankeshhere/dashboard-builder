@@ -16,6 +16,7 @@ const GridLayoutWithWidth = WidthProvider(GridLayout);
 export default function Canvas() {
   const widgets = useDashboardStore((state) => state.widgets);
   const setWidgets = useDashboardStore((state) => state.setWidgets);
+  const editMode = useDashboardStore((state) => state.editMode);
 
   const syncLayout = useCallback(
     (layout: Layout[]) => {
@@ -108,8 +109,9 @@ export default function Canvas() {
           margin={[16, 16]}
           containerPadding={[0, 0]}
           compactType="vertical"
-          isDraggable
-          isResizable
+          isDraggable={editMode}
+          isResizable={editMode}
+          draggableCancel=".MuiTablePagination-root, .MuiButtonBase-root, .MuiSelect-select, input, a"
           onDragStop={syncLayout}
           onResizeStop={syncLayout}
         >

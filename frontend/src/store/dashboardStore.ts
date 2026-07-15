@@ -24,5 +24,6 @@ export const useDashboardStore = create<DashboardState>()((set, get, api) => ({
       widgets: [],
       datasets: [],
       selectedWidgetId: null,
+      editMode: false,
     }),
 }));

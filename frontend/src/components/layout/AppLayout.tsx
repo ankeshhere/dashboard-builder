@@ -20,8 +20,17 @@ export default function AppLayout() {
 
   const selectWidget = useDashboardStore((s) => s.selectWidget);
 
+  const editMode = useDashboardStore((s) => s.editMode);
+  const setEditMode = useDashboardStore((s) => s.setEditMode);
+
+  const handleEdit = () => {
+    setEditMode(true);
+  };
+
   const handleSave = () => {
     DashboardStorage.save(widgets, datasets);
+    selectWidget(null);
+    setEditMode(false);
   };
 
   const handleLoad = () => {
@@ -42,7 +51,12 @@ export default function AppLayout() {
         flexDirection: "column",
       }}
     >
-      <Toolbar onSave={handleSave} onLoad={handleLoad} />
+      <Toolbar
+        editMode={editMode}
+        onEdit={handleEdit}
+        onSave={handleSave}
+        onLoad={handleLoad}
+      />
 
       <Box
         sx={{
@@ -50,11 +64,11 @@ export default function AppLayout() {
           display: "flex",
         }}
       >
-        <Sidebar />
+        {editMode && <Sidebar />}
 
         <Canvas />
 
-        <PropertyPanel />
+        {editMode && <PropertyPanel />}
       </Box>
     </Box>
   );

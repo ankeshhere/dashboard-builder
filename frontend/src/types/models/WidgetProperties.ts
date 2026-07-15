@@ -10,4 +10,6 @@ export interface WidgetProperties {
   valuePrefix?: string;
 
   valueSuffix?: string;
+
+  rowsPerPage?: number;
 }
